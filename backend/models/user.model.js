@@ -18,14 +18,16 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.statics.hashPassword = async function (password) {};
-return await bcrypt.hash(password, 10);
+// ✅ Fix: Place the hashing logic inside the function
+userSchema.statics.hashPassword = async function (password) {
+  return await bcrypt.hash(password, 10);
+};
 
 userSchema.methods.isValidPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-userSchema.methods.generateToken = function () {
+userSchema.methods.generateJWT = function () {
   return jwt.sign({ email: this.email }, process.env.JWT_SECRET);
 };
 
