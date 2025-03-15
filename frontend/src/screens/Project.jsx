@@ -1,14 +1,123 @@
-import React from 'react';
-import {useNavigate, useLocation} from 'react-router-dom';
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Modal, Button } from "antd";
 
-const Project = ({navigate}) => {
-    const location = useLocation();
-    console.log(location.state);
-    return (
-        <div>
-            <h1>Project Screen</h1>
+const Project = () => {
+  const location = useLocation();
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState([]);
+  const [users, setUsers] = useState([
+    { id: 1, name: "User 1" },
+    { id: 2, name: "User 2" },
+    { id: 3, name: "User 3" },
+    { id: 4, name: "User 4" },
+    { id: 5, name: "User 5" },
+    { id: 6, name: "User 6" },
+    { id: 7, name: "User 7" },
+    { id: 8, name: "User 8" },
+    { id: 9, name: "User 9" },
+    { id: 10, name: "User 10" },
+  ]);
+
+  const handleUserClick = (id) => {
+   
+    setSelectedUserId([...selectedUserId, id]);
+  };
+  console.log(location.state)
+
+  return (
+    <main className="h-screen w-screen flex">
+      <section className="left relative flex flex-col h-full min-w-80 bg-red-300">
+        <header className="flex justify-end p-2 px-4 w-full bg-blue-400 gap-40">
+          <button
+            className="p-2 bg-red-200 rounded flex"
+            onClick={() => setIsModalOpen(true)}
+          >
+            <i className="ri-user-add-fill mr-1"></i>
+            <p>Add Collaborator</p>
+          </button>
+          <button
+            onClick={() => setIsSidePanelOpen(!isSidePanelOpen)}
+            className="p-2 bg-red-200 rounded"
+          >
+            <i className="ri-group-fill"></i>
+          </button>
+        </header>
+        <div className="conversion-area flex-grow flex flex-col">
+          <div className="message-box p-1 flex flex-col gap-2 ">
+            <div className="message max-w-64 flex flex-col p-2 bg-slate-50 w-fit rounded-md shadow-lg">
+              <small className="opacity-65 text-xs">example@gmail.com</small>
+              <p className="text-sm">lorem ipsum dolor sit amet.</p>
+            </div>
+            <div className="ml-auto message max-w-64 flex flex-col p-2 bg-slate-50 w-fit rounded-md shadow-lg">
+              <small className="opacity-65 text-xs">example@gmail.com</small>
+              <p className="text-sm">lorem ipsum dolor sit amet.</p>
+            </div>
+          </div>
+          <div className="inputField w-full flex mt-auto">
+            <input
+              className="p-3 px-9 border-none outline-none flex-grow"
+              type="text"
+              placeholder="Enter message..."
+            />
+            <button className="p-2 bg-red-400 bg-slate-950 text-white">
+              <i className="ri-send-plane-fill"></i>
+            </button>
+          </div>
         </div>
-    );
+
+        <div
+          className={`sidePanel w-full h-full flex flex-col gap-2 bg-slate-300 absolute transition-transform duration-300 ${
+            isSidePanelOpen ? "translate-x-0" : "-translate-x-full"
+          } top-0 left-0`}
+        >
+          <header className="flex justify-end p-3 px-5 bg-slate-500">
+            <button onClick={() => setIsSidePanelOpen(!isSidePanelOpen)}>
+              <i className="ri-close-fill"></i>
+            </button>
+          </header>
+          <div className="users flex flex-col gap-2 ">
+            <div className="user cursor-pointer hover:bg-slate-400 p-2 flex gap-2 items-center">
+              <div className="aspect-square rounded-full w-fit h-fit flex items-center justify-center p-4 text-white bg-slate-600">
+                <i className="ri-user-5-fill absolote"></i>
+              </div>
+              <h1 className="font-semibold text-lg">username</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Modal
+        title="Select User"
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        footer={null}
+      >
+        <div className="users-list flex flex-col gap-2 max-h-96 overflow-auto">
+          {users.map((user) => (
+            <div
+              key={user.id}
+              className={`user cursor-pointer hover:bg-slate-400 ${selectedUserId.indexOf(user.id)!=-1?'bg-slate-200':""} p-2 flex gap-2 items-center`}
+              onClick={() => handleUserClick(user.id)}
+            >
+              <div className="aspect-square relative rounded-full w-fit h-fit flex items-center justify-center p-4 text-white bg-slate-600">
+                <i className="ri-user-5-fill"></i>
+              </div>
+              <h1 className="font-semibold text-lg">{user.name}</h1>
+            </div>
+          ))}
+        </div>
+        <Button
+          type="primary"
+          className="absolute bottom-4 left-1/2 transform -translate-x-1/2"
+          onClick={() => setIsModalOpen(false)}
+        >
+          Add Collaborators
+        </Button>
+      </Modal>
+    </main>
+  );
 };
 
 export default Project;

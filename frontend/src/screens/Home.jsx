@@ -71,7 +71,7 @@ const Home = () => {
             <Title level={4} style={{ color: '#4682b4' }}>{project?.name}</Title>
             <Space>
               <UserOutlined />
-              <Text style={{ color: '#4682b4' }}>{project?.users?.length} Collaborators</Text>
+              <Text style={{ color: '#4682b4' }}>{project?.users?.length} Collaborator</Text>
             </Space>
           </Card>
         ))}
