@@ -11,6 +11,17 @@ router.post('/create',
     body('name').isString().withMessage('Name is required'),
     projectController.createProject)
 
+    router.get('/all',authMiddleware.authUser ,projectController.getAllProject)
+
+    router.put('/add-user',
+        authMiddleware.authUser,
+        body('projectId').isString().withMessage('Project ID is required'),
+
+        body('users').isArray({ min: 1 }).withMessage('Users must be an array with at least one user'),
+        body('users.*').isString().withMessage('Each user must be a string'),
+        projectController.addUserToProject)
+
+    router.get('/get-project/:projectId',authMiddleware.authUser, projectController.getProjectById);
 
 
 export default router
