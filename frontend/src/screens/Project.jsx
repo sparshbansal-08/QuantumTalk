@@ -1,30 +1,37 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Modal, Button } from "antd";
+import axios from '../config/axios'
 
 const Project = () => {
   const location = useLocation();
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState([]);
-  const [users, setUsers] = useState([
-    { id: 1, name: "User 1" },
-    { id: 2, name: "User 2" },
-    { id: 3, name: "User 3" },
-    { id: 4, name: "User 4" },
-    { id: 5, name: "User 5" },
-    { id: 6, name: "User 6" },
-    { id: 7, name: "User 7" },
-    { id: 8, name: "User 8" },
-    { id: 9, name: "User 9" },
-    { id: 10, name: "User 10" },
-  ]);
+  const [users, setUsers] = useState([])
 
   const handleUserClick = (id) => {
    
-    setSelectedUserId([...selectedUserId, id]);
+    setSelectedUserId(prevSelectedUserId => {
+      const newSelectedUserId = new Set(prevSelectedUserId);
+      if (newSelectedUserId.has(id)) {
+        newSelectedUserId.delete(id);
+      } else {
+        newSelectedUserId.add(id);
+      }
+      console.log(Array.from(newSelectedUserId))
+      return newSelectedUserId;
+    });
   };
-  console.log(location.state)
+  
+  useEffect(()=>{
+    axios.get('/users/all').then(res=>setUsers(res.data.users)).catch(err=>{
+        console.log(err)
+    })
+
+
+  },[]
+    )
 
   return (
     <main className="h-screen w-screen flex">
@@ -97,14 +104,14 @@ const Project = () => {
         <div className="users-list flex flex-col gap-2 max-h-96 overflow-auto">
           {users.map((user) => (
             <div
-              key={user.id}
-              className={`user cursor-pointer hover:bg-slate-400 ${selectedUserId.indexOf(user.id)!=-1?'bg-slate-200':""} p-2 flex gap-2 items-center`}
-              onClick={() => handleUserClick(user.id)}
+              key={user.id} 
+              className={`user cursor-pointer hover:bg-slate-400 ${Array.from(selectedUserId).indexOf(user._id)!=-1?'bg-slate-200':""} p-2 flex gap-2 items-center`}
+              onClick={() => handleUserClick(user._id)}
             >
               <div className="aspect-square relative rounded-full w-fit h-fit flex items-center justify-center p-4 text-white bg-slate-600">
                 <i className="ri-user-5-fill"></i>
               </div>
-              <h1 className="font-semibold text-lg">{user.name}</h1>
+              <h1 className="font-semibold text-lg">{user.email}</h1>
             </div>
           ))}
         </div>
