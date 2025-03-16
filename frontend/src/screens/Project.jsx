@@ -73,6 +73,7 @@ const Project = () => {
             </button>
           </div>
         </div>
+        
 
         <div
           className={`sidePanel w-full h-full flex flex-col gap-2 bg-slate-300 absolute transition-transform duration-300 ${
