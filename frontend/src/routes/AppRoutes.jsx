@@ -15,6 +15,7 @@ const AppRoutes = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/project" element={<Project />} />
 
+        
       </Routes>
       </ErrorBoundary>
     </BrowserRouter>
