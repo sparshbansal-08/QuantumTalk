@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import redisClient from "../services/redis.service.js";
 
+
 export const authUser = async (req, res, next) => {
   try {
     const token = req.cookies.token || req.headers.authorization.split(" ")[1];
