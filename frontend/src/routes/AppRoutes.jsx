@@ -5,6 +5,7 @@ import Register from "../screens/Register";
 import Home from "../screens/Home";
 import Project from "../screens/Project";
 import ErrorBoundary from "../screens/ErrorBoundary";
+
 const AppRoutes = () => {
   return (
     <BrowserRouter>
