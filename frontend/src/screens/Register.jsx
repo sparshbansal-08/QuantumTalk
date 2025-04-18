@@ -1,6 +1,6 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {UserContext} from "../context/user.context";
+import { UserContext } from "../context/user.context";
 import axios from "../config/axios";
 
 const Register = () => {
@@ -8,64 +8,66 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+
   function submitHandler(e) {
     e.preventDefault();
+    console.log("Requesting URL:", axios.defaults.baseURL + "/users/register");
     axios
-      .post("/users/register", { email, password })
+      .post("/users/register", {
+        email,
+        password,
+      })
       .then((res) => {
-        console.log(res.data);
+        console.log("Registration successful:", res.data);
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.error("Registration error:", err.response?.data || err.message);
       });
   }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">
-          Register
-        </h2>
-        <form onSubmit={submitHandler} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-300">
+        <h2 className="text-2xl font-bold text-white mb-6">Register</h2>
+        <form onSubmit={submitHandler}>
+          <div className="mb-4">
+            <label className="block text-gray-400 mb-2" htmlFor="email">
               Email
             </label>
             <input
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               id="email"
-              className="mt-1 block w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter Your Email"
-              required
+              className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your email"
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-300">
+          <div className="mb-6">
+            <label className="block text-gray-400 mb-2" htmlFor="password">
               Password
             </label>
             <input
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               id="password"
-              className="mt-1 block w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter Your Password"
-              required
+              className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your password"
             />
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 rounded bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Register
           </button>
         </form>
-        <p className="mt-4 text-center text-gray-400">
+        <p className="text-gray-400 mt-4">
           Already have an account?{" "}
-          <Link to="/login" className="text-indigo-500 hover:underline">
-            login to account
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Login
           </Link>
         </p>
       </div>

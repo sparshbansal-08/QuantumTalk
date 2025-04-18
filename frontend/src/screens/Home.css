@@ -1,17 +1,124 @@
 .home-container {
-    min-height: 100vh;
-    background: url('../assets/bg.jpg') no-repeat center center fixed;
+  min-height: 100vh;
+  background: url("../assets/bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  padding: 1rem;
+}
 
-    background-size: cover;
-    
-  }
-  
-  .logo {
-    width: 150px;
-    margin-bottom: 20px;
+.logo {
+  width: 150px;
+  margin-bottom: 20px;
+  border-radius: 20%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
- border-radius: 20%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.project-card {
+  padding: 1rem;
+  border: 2px solid #1890ff; /* Blue border like Ant Design */
+  border-radius: 8px;
+  background-color: #f0f8ff; /* Light blue background */
+  min-width: 200px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project-card.create {
+  border-style: dashed;
+}
+
+.project-card h2 {
+  color: #4682b4; /* Blue text */
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-card .collaborators {
+  color: #4682b4;
+  font-size: 0.875rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 33%;
+  max-width: 500px;
+}
+
+.modal-content h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #ff6347; /* Orange title */
+}
+
+.modal-content label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.modal-content .button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.modal-content button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modal-content button.cancel {
+  background: #d9d9d9;
+  border: none;
+  color: #333;
+}
+
+.modal-content button.submit {
+  background: #1890ff;
+  border: none;
+  color: white;
+}
+
+.modal-content button:hover {
+  opacity: 0.9;
+}
