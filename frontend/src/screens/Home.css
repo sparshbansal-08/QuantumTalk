@@ -23,7 +23,7 @@
 
 .project-card {
   padding: 1rem;
-  border: 2px solid #1890ff; /* Blue border like Ant Design */
+  border: 3px solid #0584fc; /* Blue border like Ant Design */
   border-radius: 8px;
   background-color: #f0f8ff; /* Light blue background */
   min-width: 200px;
@@ -34,7 +34,7 @@
 
 .project-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(197, 191, 191, 0.1);
 }
 
 .project-card.create {
@@ -42,7 +42,7 @@
 }
 
 .project-card h2 {
-  color: #4682b4; /* Blue text */
+  color: #0880e1; /* Blue text */
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
@@ -74,14 +74,14 @@
 .modal-content h2 {
   font-size: 1.25rem;
   margin-bottom: 1rem;
-  color: #ff6347; /* Orange title */
+  color: #f33615; /* Orange title */
 }
 
 .modal-content label {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #333;
+  color: #191919;
   margin-bottom: 0.5rem;
 }
 
